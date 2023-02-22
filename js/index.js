@@ -1,4 +1,4 @@
-import { SucursalApi, ProductoApi } from "../class/ApiTienda.js";
+import { SucursalApi, ProductoApi, CategoriaApi } from "../class/ApiTienda.js";
 import { RenderSucursales } from "../component/RenderSucursales.js";
 import { RenderProductos } from "../component/RenderProductos.js";
 

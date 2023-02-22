@@ -1,4 +1,4 @@
-export class Sucursal {
+export class Categoria {
     #id;
     #nombre;
     
