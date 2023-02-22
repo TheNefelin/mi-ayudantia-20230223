@@ -1,12 +1,26 @@
+import { SucursalApi, ProductoApi } from "../class/ApiTienda.js";
+import { RenderSucursales } from "../component/RenderSucursales.js";
+import { RenderProductos } from "../component/RenderProductos.js";
 
 window.onload = () => {
     inicializarAPi();
 };
 
 function inicializarAPi() {
-    fetch("https://bsite.net/metalflap/td-sucursal")
-    .then(data => data.json())
-    .then(dt => console.log(dt))
+    const sucursales = new SucursalApi().getSucursal();
+    sucursales.then(data => {
+        RenderSucursales(data);
+        
+        const listaBtn =  document.querySelectorAll(".listaSucursales button");
+        listaBtn.forEach(e => e.addEventListener("click", () => selectSucursal(e.value)));
+    });
+}
+
+function selectSucursal(id) {
+    const productos = new ProductoApi().getProductoBySucu(id);
+    productos.then(data => {
+        RenderProductos(data);
+    });
 }
 
 // -- Bodega -----------------------------------------------------------
