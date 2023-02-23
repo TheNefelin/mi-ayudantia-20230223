@@ -4,6 +4,7 @@ import { RenderSucursales } from "../component/RenderSucursal.js";
 import { RenderProductos } from "../component/RenderProductos.js";
 import { RenderCategoria } from "../component/RenderCategoria.js";
 import { RenderCarrito } from "../component/RenderCarrito.js";
+import { Comida, Promedio, Torta, Colegio, Alumno } from "../class/Clases.js";
 
 window.onload = () => {
     inicializarAPi();
@@ -131,7 +132,7 @@ function delCarritoLS() {
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 
-const btn = document.querySelector("#btn")
+const btn = document.querySelector("#btn1")
 btn.addEventListener("click", () => {
     prueba();
     prueba2();
@@ -162,3 +163,26 @@ async function Prueba3() {
     // return await Promise.resolve().then(() => console.log("Console log A2"))
     //return console.log("Console log A2")
 }
+
+
+const btn2 = document.querySelector("#btn2")
+btn2.addEventListener("click", () => {
+    const fruta = new Comida(1, "platano", "azul");
+    console.log(fruta)
+    fruta.setNombre("Manzana")
+    console.log(fruta.getComidaObj())
+
+    const torta = new Torta(1, "Mil Hoja", "Cafe", "Chocolate")
+    console.log(torta)
+
+    const promedio = new Promedio()
+    // console.log(promedio.getPromedio([4.1, 2, 2.2, 3]))
+
+    const cole = new Colegio()
+    cole.setAlumno(new Alumno("Francsico", [2, 5, 4, 6, 3]))
+    cole.setAlumno(new Alumno("Andrea", [7, 7, 7, 7, 7]))
+    cole.setAlumno(new Alumno("Eme", [1, 2, 3, 4, 5]))
+
+    console.log(cole.getAlumnos())
+
+});
