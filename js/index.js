@@ -5,6 +5,8 @@ import { RenderProductos } from "../component/RenderProductos.js";
 import { RenderCategoria } from "../component/RenderCategoria.js";
 import { RenderCarrito } from "../component/RenderCarrito.js";
 import { Comida, Promedio, Torta, Colegio, Alumno } from "../class/Clases.js";
+import { Promesa } from "../class/Promesa.js";
+import { Asincronia } from "../class/Asincronia.js";
 
 window.onload = () => {
     inicializarAPi();
@@ -186,3 +188,16 @@ btn2.addEventListener("click", () => {
     console.log(cole.getAlumnos())
 
 });
+
+// ---------------------------------------------------------------------
+// ---------------------------------------------------------------------
+const btn3 = document.querySelector("#btn3")
+btn3.addEventListener("click", () => {
+    Promesa();
+})
+    
+const btn4 = document.querySelector("#btn4")
+btn4.addEventListener("click", () => {
+    Asincronia();
+})
+    
