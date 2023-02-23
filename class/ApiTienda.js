@@ -8,7 +8,7 @@ class API {
     getUrl() {
         return this.#url;
     };
-}
+};
 
 export class SucursalApi extends API {
     constructor() {
@@ -24,6 +24,11 @@ export class SucursalApi extends API {
 export class ProductoApi extends API {
     constructor() {
         super();
+    };
+
+    async getProducto() {
+        const res = await fetch(`${this.getUrl()}/td-producto`);
+        return await res.json();
     };
 
     async getProductoBySucu(id) {
