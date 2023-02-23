@@ -1,5 +1,6 @@
 export function RenderCategoria(dt) {
     const listaCategorias = document.querySelector(".listaCategorias");
+    listaCategorias.innerHTML = "";
 
     let opcion = document.createElement("option");
     opcion.value = 0;
@@ -7,5 +8,11 @@ export function RenderCategoria(dt) {
 
     listaCategorias.appendChild(opcion);
 
-    console.log(dt)
+    dt.forEach(e => {
+        opcion = document.createElement("option");
+        opcion.value = e.id;
+        opcion.innerText = e.nombre;
+
+        listaCategorias.appendChild(opcion);
+    });
 }

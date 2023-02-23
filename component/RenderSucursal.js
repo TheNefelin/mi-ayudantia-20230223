@@ -1,4 +1,4 @@
-export function RenderListaSucursales(dt) {
+export function RenderSucursales(dt) {
     const listaSucursales =  document.querySelector(".listaSucursales");
     listaSucursales.innerHTML = "";
 

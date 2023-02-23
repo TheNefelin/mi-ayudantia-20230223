@@ -1,16 +1,19 @@
 import { SucursalApi, ProductoApi, CategoriaApi } from "../class/ApiTienda.js";
-import { RenderListaSucursales } from "../component/RenderSucursal.js";
+import { Carrito } from "../class/Carrito.js";
+import { RenderSucursales } from "../component/RenderSucursal.js";
 import { RenderProductos } from "../component/RenderProductos.js";
 import { RenderCategoria } from "../component/RenderCategoria.js";
+import { RenderCarrito } from "../component/RenderCarrito.js";
 
 window.onload = () => {
     inicializarAPi();
+    renderCarritoConListener(getCarritoLS().getProductos());
 };
 
 function inicializarAPi() {
     const listaSucursales = new SucursalApi().getSucursal()
     listaSucursales.then(data => {
-        RenderListaSucursales(data);
+        RenderSucursales(data);
     })
     .then(() => {
         const opcionSucursales =  document.querySelector(".listaSucursales");
@@ -26,30 +29,68 @@ function clickSucursal(id) {
     ])
     .then(arr => {
         const arrIdCateg = [];
-        const listaCategorias = document.querySelector(".listaCategorias");
-        listaCategorias.innerHTML = "";
+        const arrCateg = [];
 
         arr[1].forEach(e => {
             if (arrIdCateg.indexOf(e.idCategoria) == -1) {
                 arrIdCateg.push(e.idCategoria);
+                arrCateg.push(arr[0].find(oe => oe.id == e.idCategoria))
             };
         });
 
-        RenderCategoria(arrIdCateg);
+        RenderCategoria(arrCateg);
+
+        const listaCategorias = document.querySelector(".listaCategorias");
+        listaCategorias.addEventListener("change", () => {
+            RenderProductos(arr[1].filter(e => e.idCategoria == listaCategorias.value))
+
+            const btnProductos = document.querySelectorAll("button");
+        
+            btnProductos.forEach(e => {
+                e.addEventListener("click", () => {
+                    agregarACarrito(e.value);
+                })
+            });
+        });
+
+        setBodegaLS(arr[1]);
+    });
+};
+
+function agregarACarrito(id) {
+    const producto = getBodegaLS().find(e => e.id == id);
+    const carrito = getCarritoLS();
+    if (producto) {
+        carrito.setProducto(producto.id, producto.nombre, 1, producto.precio)
+        setCarritoLS(carrito);
+    }
+
+    // delCarritoLS()
+    renderCarritoConListener(carrito.getProductos());
+};
+
+function renderCarritoConListener(cr) {
+    RenderCarrito(cr);
+
+    const btnCarrito = document.querySelectorAll(".productosCarrito button");
+    btnCarrito.forEach(e => {
+        e.addEventListener("click", () => {
+            eliminarDelCarrito(e.value);
+        });
     });
 }
 
-// function selectSucursal(id) {
-//     const productos = new ProductoApi().getProductoBySucu(id);
-//     productos.then(data => {
-//         RenderProductos(data);
-//     });
-// }
+function eliminarDelCarrito(id) {
+    const carrito = getCarritoLS();
+    carrito.deleteProducto(id);
+    setCarritoLS(carrito);
+    renderCarritoConListener(carrito.getProductos());
+}
 
 // -- Bodega -----------------------------------------------------------
 // ---------------------------------------------------------------------
 function setBodegaLS(bodega) {
-    deleteLS();
+    delBodegaLS();
     localStorage.setItem('bodega', JSON.stringify(bodega));
 }
 
@@ -64,12 +105,23 @@ function delBodegaLS() {
 // -- Carrito ----------------------------------------------------------
 // ---------------------------------------------------------------------
 function setCarritoLS(carrito) {
-    deleteLS();
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+    delCarritoLS();
+    localStorage.setItem('carrito', JSON.stringify(carrito.getProductos()));
 }
 
 function getCarritoLS() {
-    return JSON.parse(localStorage.getItem('carrito'));
+    const carritoLS = JSON.parse(localStorage.getItem('carrito'))
+    const carrito = new Carrito();
+
+    if (carritoLS) {
+        carritoLS.forEach(e => {
+            carrito.setProducto(e.id, e.nombre, e.cant, e.precio); 
+        });
+        
+        return carrito;
+    } else {
+        return carrito
+    }
 }
 
 function delCarritoLS() {
@@ -78,3 +130,35 @@ function delCarritoLS() {
 
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
+
+const btn = document.querySelector("#btn")
+btn.addEventListener("click", () => {
+    prueba();
+    prueba2();
+});
+
+function prueba() {
+    console.log("Console log 1");
+    
+    setTimeout(() => {
+        console.log("Console.log 2")
+    }, 0); 
+
+    console.log("Console.log 3")
+}
+
+function prueba2() {
+    console.log("Console log P1");
+    
+    Promise.resolve().then(() => {
+        console.log("Console log P2");
+    })
+
+    console.log("Console.log P3")
+    Prueba3()
+}
+
+async function Prueba3() {
+    // return await Promise.resolve().then(() => console.log("Console log A2"))
+    //return console.log("Console log A2")
+}

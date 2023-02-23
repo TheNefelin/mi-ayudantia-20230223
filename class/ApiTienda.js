@@ -31,6 +31,11 @@ export class ProductoApi extends API {
         return await res.json();
     };
 
+    async getProductoById(id) {
+        const res = await fetch(`${this.getUrl()}/td-producto/${id}`);
+        return await res.json();
+    };
+
     async getProductoBySucu(id) {
         const res = await fetch(`${this.getUrl()}/td-producto/idSucursal/${id}`);
         return await res.json();
