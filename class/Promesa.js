@@ -34,17 +34,29 @@ export function Promesa() {
     // .then(() => comprar("Copete", 2000))
     // .then(() => console.log(carrito))
 
-    Promise.all([
-        comprar("comida pal Gato", 1000),
-        comprar("Copete", 2000),
-        comprar("frutas", 5000),
-        comprar("Papas Lays", 2000)
-    ])
-    .then(() => {
-        console.log(carrito)
-        console.log("Renderizare utilizando el DOM")
-    });
+    // Promise.all([
+    //     comprar("comida pal Gato", 1000),
+    //     comprar("Copete", 2000),
+    //     comprar("frutas", 5000),
+    //     comprar("Papas Lays", 2000)
+    // ])
+    // .then(() => {
+    //     console.log(carrito)
+    //     console.log("Renderizare utilizando el DOM")
+    // });
+
+    comprarDeNuevo(comprar("comida pal Gato", 1000)),
+    comprarDeNuevo(comprar("Copete", 2000)),
+    comprarDeNuevo(comprar("frutas", 5000)),
+    comprarDeNuevo(comprar("Papas Lays", 2000))
+
+
 } 
+
+async function comprarDeNuevo(callback) {
+    await callback
+    console.log(carrito)
+}
 
 function comprar(prod, seg) {
     return new Promise((resolve, reject) => {
