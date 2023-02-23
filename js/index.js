@@ -4,6 +4,7 @@ import { RenderSucursales } from "../component/RenderSucursal.js";
 import { RenderProductos } from "../component/RenderProductos.js";
 import { RenderCategoria } from "../component/RenderCategoria.js";
 import { RenderCarrito } from "../component/RenderCarrito.js";
+import { Test } from "../class/Test.js";
 import { Comida, Promedio, Torta, Colegio, Alumno } from "../class/Clases.js";
 import { Promesa } from "../class/Promesa.js";
 import { Asincronia } from "../class/Asincronia.js";
@@ -134,38 +135,10 @@ function delCarritoLS() {
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 
-const btn = document.querySelector("#btn1")
-btn.addEventListener("click", () => {
-    prueba();
-    prueba2();
+const btn1 = document.querySelector("#btn1")
+btn1.addEventListener("click", () => {
+    Test()
 });
-
-function prueba() {
-    console.log("Console log 1");
-    
-    setTimeout(() => {
-        console.log("Console.log 2")
-    }, 0); 
-
-    console.log("Console.log 3")
-}
-
-function prueba2() {
-    console.log("Console log P1");
-    
-    Promise.resolve().then(() => {
-        console.log("Console log P2");
-    })
-
-    console.log("Console.log P3")
-    Prueba3()
-}
-
-async function Prueba3() {
-    // return await Promise.resolve().then(() => console.log("Console log A2"))
-    //return console.log("Console log A2")
-}
-
 
 const btn2 = document.querySelector("#btn2")
 btn2.addEventListener("click", () => {
